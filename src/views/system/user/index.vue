@@ -1,16 +1,15 @@
 <template>
   <div>
-    <el-rwo>
+    <el-row>
       <el-button
           type="primary"
           plain
           icon="Plus"
           @click="handleAdd"
       >新增</el-button>
-    </el-rwo>
+    </el-row>
     <el-card >
       <div>
-
         <el-table border  :data="userList" style="width: 100%" >
           <el-table-column prop="userName" label="用户名" width="180" />
           <el-table-column prop="nickName" label="昵称" width="180" />

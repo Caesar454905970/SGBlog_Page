@@ -7,6 +7,8 @@ import "./assets/css/gloable.css" //引入全局样式
 import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
 import './assets/iconfont/iconfont.css'
 import {store} from "./store";
+import Particles from 'particles.vue3'
+
 
 const app =createApp(App)
 
@@ -17,11 +19,10 @@ import Pagination from './components/Pagination/index.vue'
 // 全局组件挂载
 app.component('Pagination', Pagination)
 
-
-
 app.use(router)
     .use(ElementPlus,{
         locale: locale,
     })
     .use(store)
+    .use(Particles)
     .mount('#app')

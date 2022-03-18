@@ -21,10 +21,16 @@ const routes = [
                 component: () => import('../views/Home/index.vue'),
             },
             {
-                path: 'SysUser',
-                name: 'SysUser',
-                component: () => import('../views/system/user/index.vue'),
+                path: '/Account',
+                name: 'Account',
+                component: () => import('../views/Account/index.vue'),
             },
+            {
+                path: '/RequestLog',
+                name: 'RequestLog',
+                component: () => import('../views/RequestLog/index.vue'),
+            },
+
             {
                 path: 'sysRole',
                 name: 'sysRole',
@@ -36,9 +42,9 @@ const routes = [
 ]
 
 /*const routes = [
-    { path: '/', component: () => import('../Layout/index.vue'),
+    { path: '/', component: () => import('../Layout/index.vue.vue'),
         children:[
-            { path: 'home', component: () => import('../views/Home/index.vue')},
+            { path: 'home', component: () => import('../views/Home/index.vue.vue')},
             { path: 'about', component: () => import('../views/About.vue')},
         ]}
 ]*/

@@ -19,17 +19,21 @@
             <span>主页</span>
           </el-menu-item>
 
-          <el-menu-item index="/SysUser">
+          <el-menu-item index="/Account">
             <el-icon><icon-menu /></el-icon>
             <span>用户管理</span>
           </el-menu-item>
-          <el-menu-item index="/sysRole">
+<!--          <el-menu-item index="/sysRole">
             <el-icon><icon-menu /></el-icon>
             <span>角色管理</span>
+          </el-menu-item>-->
+          <el-menu-item index="/RequestLog">
+            <el-icon><icon-menu /></el-icon>
+            <span>操作日志</span>
           </el-menu-item>
         </el-sub-menu>
 
-<!--        <el-menu-item index="2">-->
+<!--        <el-menu-item index.vue="2">-->
 <!--          <el-icon><icon-menu /></el-icon>-->
 <!--          <span>菜单二</span>-->
 <!--        </el-menu-item>-->

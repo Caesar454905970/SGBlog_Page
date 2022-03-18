@@ -1,99 +1,97 @@
 <template>
 
-    <div>
-      <!--引入粒子特效-->
-        <Particles
-            id="tsparticles"
-            :options="options"
-        />
 
-      <el-row>
-        <el-col :span="2" >
+
+  <div class="login" >
+
+    
+    <el-row>
+      <el-col :span="2" >
+        <br>
+      </el-col>
+      <el-col :span="10" >
+        <el-row style="height: 10vh">
           <br>
-        </el-col>
-        <el-col :span="10" >
-          <el-row style="height: 10vh">
+        </el-row>
+        <el-row style="height: 80vh;background-color: #FFFFFF;border-radius: 20px 0 0 20px; opacity:0.8;">
+          <!--左侧内容-->
+          <el-row style="height: 20.8vh;width: 100vw;">
+            <!--reem-logo-->
+            <div  class="reem-logo">
+              <br>
+            </div>
             <br>
           </el-row>
-          <el-row style="height: 80vh;background-color: #FFFFFF;border-radius: 20px 0 0 20px; opacity:0.8;">
-            <!--左侧内容-->
-            <el-row style="height: 20.8vh;width: 100vw;">
-              <!--reem-logo-->
-              <div  class="reem-logo">
+          <el-row  style="height: 44vh;width: 100vw;">
+            <!--中间Logo-->
+            <el-col :span="2" style="height: 44vh;"> <br></el-col>
+            <el-col :span="20 " class="login-left-logo"> <br></el-col>
+            <el-col :span="2" style="height: 44vh;"> <br></el-col>
+          </el-row>
+          <el-row style="height: 15.2vh;width: 100vw;">
+            <br>
+          </el-row>
+        </el-row>
+        <el-row style="height: 10vh">
+          <br>
+        </el-row>
+      </el-col>
+      <el-col :span="10" >
+        <el-row style="height: 10vh">
+          <br>
+        </el-row>
+        <el-row style="height: 80vh;background-color: #FFFFFF;border-radius: 0 20px 20px 0;opacity:0.8;">
+
+          <el-row style="height: 18vh;width: 100vw;">
+            <br>
+          </el-row>
+          <el-row style="height: 62vh;width: 100vw;">
+            <br>
+            <el-col :span="5" style=""> <br></el-col>
+            <el-col :span="14" style="">
+              <!--心血管自主神经系统-->
+              <el-row style="height:4vh;  justify-content: center;">
+                <span class="title-font">vue3.2+vite2+pinia</span>
+              </el-row>
+              <el-row style="height:12vh;">
                 <br>
-              </div>
-              <br>
-            </el-row>
-            <el-row  style="height: 44vh;width: 100vw;">
-              <!--中间Logo-->
-              <el-col :span="2" style="height: 44vh;"> <br></el-col>
-              <el-col :span="20 " class="login-left-logo"> <br></el-col>
-              <el-col :span="2" style="height: 44vh;"> <br></el-col>
-            </el-row>
-            <el-row style="height: 15.2vh;width: 100vw;">
-              <br>
-            </el-row>
-          </el-row>
-          <el-row style="height: 10vh">
-            <br>
-          </el-row>
-        </el-col>
-        <el-col :span="10" >
-          <el-row style="height: 10vh">
-            <br>
-          </el-row>
-          <el-row style="height: 80vh;background-color: #FFFFFF;border-radius: 0 20px 20px 0;opacity:0.8;">
-
-            <el-row style="height: 18vh;width: 100vw;">
-              <br>
-            </el-row>
-            <el-row style="height: 62vh;width: 100vw;">
-              <br>
-              <el-col :span="5" style=""> <br></el-col>
-              <el-col :span="14" style="">
-                <!--心血管自主神经系统-->
-                <el-row style="height:4vh;  justify-content: center;">
-                  <span class="title-font">vue3.2+vite2+pinia</span>
-                </el-row>
-                <el-row style="height:12vh;">
-                  <br>
-                </el-row>
-                <el-row style="justify-content: center">
-                  <el-form :model="loginForm"
+              </el-row>
+              <el-row style="justify-content: center">
+                <el-form :model="loginForm"
                            ref="loginFormRef"
-                           style="height:48vh;"
-                           :rules="loginFormRules">
-                    <el-form-item prop="userName" style="width: 100%;height:5vh;justify-content: center">
-                      <el-input
-                          @keyup.enter="submitLoginForm"
-                          clearable
-                          size="large"
-                          v-model="loginForm.userName"
-                          placeholder="请输入登录名称"
-                      >
-                        <template #prefix >
-                          <el-icon style="margin:auto" class="iconfont icon-yonghu"></el-icon>
-                        </template>
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item prop="password" style="width: 100%;height:5vh;">
-                      <el-input
-                          @keyup.enter="submitLoginForm"
-                          class="pwd_input"
-                          show-password
-                          size="large"
-                          clearable
-                          v-model="loginForm.password"
-                          placeholder="请输入登录密码"
-                      >
-                        <template #prefix >
-                          <el-icon style="margin:auto" class="iconfont icon-3"></el-icon>
-                        </template>
-                      </el-input>
-                    </el-form-item>
+                         style="height:48vh;"
+                         :rules="loginFormRules">
+                  <el-form-item prop="userName" style="width: 100%;height:5vh;justify-content: center">
+                    <el-input
+                        @keyup.enter="submitLoginForm"
+                        clearable
+                        size="large"
+                        v-model="loginForm.userName"
+                        placeholder="请输入登录名称"
+                    >
+                      <template #prefix >
+                        <el-icon style="margin:auto" class="iconfont icon-yonghu"></el-icon>
+                      </template>
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item prop="password" style="width: 100%;height:5vh;">
+                    <el-input
+                        @keyup.enter="submitLoginForm"
+                        class="pwd_input"
+                        show-password
+                        size="large"
+                        clearable
+                        v-model="loginForm.password"
+                        placeholder="请输入登录密码"
+                    >
+                      <template #prefix >
+                        <el-icon style="margin:auto" class="iconfont icon-3"></el-icon>
+                      </template>
+                    </el-input>
+                  </el-form-item>
 
 
-                    <el-form-item  prop="validCode">
+                  <el-form-item  prop="validCode">
                       <el-row>
                         <el-col :span="14">
                           <el-input clearable size="large"
@@ -115,36 +113,36 @@
                         </el-col>
                       </el-row>
 
-                    </el-form-item>
+                  </el-form-item>
 
-                    <el-form-item  style="width: 100%;height:3vh;">
-                      <el-checkbox v-model="loginForm.rememberMe" style="width: 100%;height:3vh;">记住密码</el-checkbox>
-                    </el-form-item >
+                  <el-form-item  style="width: 100%;height:3vh;">
+                    <el-checkbox v-model="loginForm.rememberMe" style="width: 100%;height:3vh;">记住密码</el-checkbox>
+                  </el-form-item >
 
-                    <el-form-item style="width: 100%;height:3vh;">
-                      <el-button size="large" style="width: 100%" type="primary" @click="submitLoginForm" class="btns-denglu">登录</el-button>
-                    </el-form-item>
-                  </el-form>
-
-
-                </el-row>
+                  <el-form-item style="width: 100%;height:3vh;">
+                    <el-button size="large" style="width: 100%" type="primary" @click="submitLoginForm" class="btns-denglu">登录</el-button>
+                  </el-form-item>
+                </el-form>
 
 
-              </el-col>
-              <el-col :span="5" style=""> <br></el-col>
+              </el-row>
 
-            </el-row>
+
+            </el-col>
+            <el-col :span="5" style=""> <br></el-col>
+
           </el-row>
-          <el-row style="height: 10vh">
-            <br>
-          </el-row>
-        </el-col>
-        <el-col :span="2" >
+        </el-row>
+        <el-row style="height: 10vh">
           <br>
-        </el-col>
-      </el-row>
-
-    </div>
+        </el-row>
+      </el-col>
+      <el-col :span="2" >
+          <br>
+      </el-col>
+    </el-row>
+<!--    <div>123</div>-->
+  </div>
 
 </template>
 
@@ -162,87 +160,6 @@ import {
    UserFilled,
 } from '@element-plus/icons-vue'
 import router from '../../router'
-
-// <!--引入粒子特效的相关配置-->
-const options = {
-  background: {
-    color: {
-      value: "#dedede",//粒子颜色
-    },
-  },
-  fpsLimit: 60,
-  interactivity: {
-    events: {
-      onClick: {
-        enable: true,
-        mode: "push",//可用的click模式有: "push", "remove", "repulse", "bubble"。
-      },
-      onHover: {
-        enable: true,
-        mode: "grab",//可用的hover模式有: "grab", "repulse", "bubble"。
-      },
-      resize: true,
-    },
-    modes: {
-      bubble: {
-        distance: 400,
-        duration: 2,
-        opacity: 0.8,
-        size: 40,
-      },
-      push: {
-        quantity: 4,
-      },
-      repulse: {
-        distance: 200,
-        duration: 0.4,
-      },
-    },
-  },
-  particles: {
-    color: {
-      value: "#ffffff",
-    },
-    links: {
-      color: "#ffffff",//'#dedede'。线条颜色。
-      distance: 150,//线条长度
-      enable: true,//是否有线条
-      opacity: 0.5,//线条透明度。
-      width: 1,//线条宽度。
-    },
-    collisions: {
-      enable: false,
-    },
-    move: {
-      direction: "none",
-      enable: true,
-      outMode: "bounce",
-      random: false,
-      speed: 4,//粒子运动速度。
-      straight: false,
-    },
-    number: {
-      density: {
-        enable: true,
-        area: 800,
-      },
-      value: 80,//粒子数量。
-    },
-    opacity: {
-      value: 0.5,//粒子透明度。
-    },
-    shape: {
-      type: "circle", //可用的粒子外观类型有："circle","edge","triangle", "polygon","star"
-    },
-    size: {
-      random: true,
-      value: 5,
-    },
-  },
-  detectRetina: true,
-};
-
-
 
 
 onMounted(() => {
