@@ -1,5 +1,5 @@
 //调用封装了的axios => request
-import service from "../utils/request.js";
+import service from "../../utils/request.js";
 
 /**
  * 封装各个组件里面的axios请求
@@ -11,7 +11,7 @@ import service from "../utils/request.js";
 export function Login(formData){
     return service({
         method:'post',  //请求的方法
-        url:`/sysUser/login`, //请求的地址
+        url:`/login`, //请求的地址
         data: formData    //提交的参数
     })
 }

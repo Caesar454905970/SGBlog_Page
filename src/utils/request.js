@@ -15,7 +15,7 @@ const service = axios.create({
 // 可以自请求发送前对请求做一些处理
 // 比如统一加token，对请求参数统一加密
 service.interceptors.request.use(config =>{
-    const  SysUserToken= window.sessionStorage.getItem("SysUserToken")
+    const  SysUserToken= window.sessionStorage.getItem("token")
     if(SysUserToken){ //token不存在；不携带；login
         config.headers['token'] =SysUserToken// 让每个请求携带自定义token 请根据实际情况自行修改
     }

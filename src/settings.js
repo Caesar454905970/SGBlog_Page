@@ -2,10 +2,10 @@
  * 全局环境设置
  */
 export default {
-  env:"test",
-  baseURL: "http://121.201.93.45:19002", //测试环境
-/*  env:"product",
-  baseURL: "http://api.carts.reemwell.com", //生产环境*/
+/*  env:"test",
+  baseURL: "http://localhost:8081", //测试环境*/
+  env:"product",
+  baseURL: "http://111.229.91.20:8081", //生产环境
 
 
 

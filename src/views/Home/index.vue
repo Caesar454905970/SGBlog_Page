@@ -1,20 +1,18 @@
 <template>
   <div>
     <el-card >
-      <div>
-        <div style="padding: 10px 0">
-          <el-button type="primary" plain @click="load">搜索</el-button>
+        <div>
+          为了更好的学习和使用vue3中的新特性，包括elementplus+pinia的使用；<br>
+          为了更好的学习和使用springboot中的特性，以及鉴权等各种实际开发解决方案，搭建了这个小破站来提升自己的技术；<br>
+          感谢bibibi三更老师视频，我都是跟着他的基础视频敲过来的；附上老师的视频地址：<br>
+          https://space.bilibili.com/663528522?spm_id_from=333.788.b_765f7570696e666f.2<br>
+          目前这个网站项目的前后端源码开源地址：<br>
+          https://github.com/Caesar454905970/SGBlog <br>
+          https://github.com/Caesar454905970/SGBlog_Page <br>
+          后面回定期更新出百度云盘的下载地址：<br>
         </div>
-        <el-table :data="tableData" style="width: 100%" v-loading="loading">
-          <el-table-column prop="date" label="Date" width="180" />
-          <el-table-column prop="name" label="Name" width="180" />
-          <el-table-column prop="address" label="Address" />
-        </el-table>
-      </div>
     </el-card >
-    <el-card>
-      vuex的使用测试，接受参数：{{num}}
-    </el-card>
+
 
   </div>
 

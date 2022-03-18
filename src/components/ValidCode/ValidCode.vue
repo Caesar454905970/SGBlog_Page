@@ -66,10 +66,11 @@ export default {
       const charsLen = chars.length
       // 生成
       for (let i = 0; i < len; i++) {
-        const rgb = [Math.round(Math.random() * 220), Math.round(Math.random() * 240), Math.round(Math.random() * 200)]
+        // const rgb = [Math.round(Math.random() * 220), Math.round(Math.random() * 240), Math.round(Math.random() * 200)]
         codeList.push({
           code: chars.charAt(Math.floor(Math.random() * charsLen)),
-          color: `rgb(${rgb})`,
+          // color: `rgb(${rgb})`,
+          color: `40,97,199`,  //验证码的颜色
           // fontSize: `${10 + (+[Math.floor(Math.random() * 10)] + 2)}px`, //默认字体大小
           fontSize: `1vw`, //默认字体大小
           // padding: `${[Math.floor(Math.random() * 10)]}px`,//每个验证码中间的间距

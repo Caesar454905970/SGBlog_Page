@@ -46,7 +46,7 @@
             <el-col :span="14" style="">
               <!--心血管自主神经系统-->
               <el-row style="height:4vh;  justify-content: center;">
-                <span class="title-font">vue3.2+vite2后台管理系统</span>
+                <span class="title-font">vue3.2+vite2+pinia</span>
               </el-row>
               <el-row style="height:12vh;">
                 <br>
@@ -58,6 +58,7 @@
                          :rules="loginFormRules">
                   <el-form-item prop="userName" style="width: 100%;height:5vh;justify-content: center">
                     <el-input
+                        @keyup.enter="submitLoginForm"
                         clearable
                         size="large"
                         v-model="loginForm.userName"
@@ -70,6 +71,7 @@
                   </el-form-item>
                   <el-form-item prop="password" style="width: 100%;height:5vh;">
                     <el-input
+                        @keyup.enter="submitLoginForm"
                         class="pwd_input"
                         show-password
                         size="large"
@@ -144,7 +146,7 @@ import { ElMessage } from 'element-plus'
 import ValidCode from '../../components/ValidCode/ValidCode.vue' //引入验证码组件
 import {reactive, ref} from "vue";
 import { onMounted, onUnmounted } from 'vue'
-import {Login} from '../../api/login.js'
+import {Login} from '../../api/Login/login.js'
 // import {useRouter} from 'vue-router'
 import {
   CircleCheck,
@@ -161,11 +163,11 @@ onMounted(() => {
   // console.log(localStorage.getItem("reemUserPwd"))
   const  str_reemUserPwd=localStorage.getItem("reemUserPwd")
   if(str_reemUserPwd==""||str_reemUserPwd==null||str_reemUserPwd==undefined){
-    console.log("本地没有数据")
+    // console.log("本地没有数据")
     return
   }else{
     const reemUserPwd=JSON.parse(localStorage.getItem("reemUserPwd"))
-    console.log(reemUserPwd)
+    // console.log(reemUserPwd)
 
     // if(reemUserPwd.password){
       // if(reemUserPwd.userName){
@@ -175,7 +177,7 @@ onMounted(() => {
         loginForm.userName=reemUserPwd.userName
         loginForm.password=reemUserPwd.password
         loginForm.rememberMe=reemUserPwd.rememberMe
-        console.log("记住密码：加载3个数据成功")
+        // console.log("记住密码：加载3个数据成功")
       // }
 
     // }
@@ -189,8 +191,8 @@ onMounted(() => {
    */
   //登录表单数据
   const loginForm = reactive({
-    userName:'',
-    password:'',
+    userName:'sg',
+    password:'1234',
     validCode:'',
     rememberMe: false, //记住密码
 
@@ -265,7 +267,7 @@ onMounted(() => {
          //保存用户信息放入store
          //页面跳转:到主页
          ElMessage({
-           message: res.msg,
+           message: "登录成功",
            type: 'success',
            showClose: true,
            duration: 1000,
