@@ -71,7 +71,7 @@
 
       <el-descriptions-item label="请求入参：">{{logForm.Form.requestArgs}}</el-descriptions-item>
 
-      <el-descriptions-item label="响应的结果：">{{logForm.Form.response}} ms</el-descriptions-item>
+      <el-descriptions-item label="响应的结果：">{{logForm.Form.response}}</el-descriptions-item>
 
       <el-descriptions-item label="createBy：">{{logForm.Form.createBy}}</el-descriptions-item>
 

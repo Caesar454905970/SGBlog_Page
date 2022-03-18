@@ -43,8 +43,8 @@ service.interceptors.response.use(
         }
         // 验证token：
         else if (res.code === 401) {
-            console.error("token过期，重新登录")
-            router.push("/login")
+            // console.error("token过期，重新登录")
+            router.push("/login").then(r =>router.push("/login") )
         }
             // arr1=JSON.parse(window.sessionStorage.getItem("arr_start_menu"))
         // 接口是否有权限访问：如果 403 没有权限；提示用户刷新页面：mian.vue=>onmouted原始路由信息=》放入sessionStorage
@@ -58,8 +58,8 @@ service.interceptors.response.use(
         }
 
         else if (res.code === 401) {
-            console.error("token过期，重新登录")
-            router.push("/login")
+            // console.error("token过期，重新登录")
+            router.push("/login").then(r =>router.push("/login"))
         }
         return res;
     },

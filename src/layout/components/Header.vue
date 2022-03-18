@@ -45,7 +45,7 @@ import router from "../../router";
 import {ElMessage} from "element-plus";
 import {logout} from '../../api/Login/login'
 const Logout=()=>{
-  console.log("我点击了退出")
+  // console.log("我点击了退出")
   //删除sessionStorage中的token
   window.sessionStorage.removeItem("SysUserToken")
   router.push(('/'))

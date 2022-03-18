@@ -19,7 +19,7 @@ export function Login(formData){
 export  function logout(){
     return service({
         method:'post',
-        url:`/sysUser/logout`,
+        url:`/logout`,
 
     })
 }

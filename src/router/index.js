@@ -31,11 +31,7 @@ const routes = [
                 component: () => import('../views/RequestLog/index.vue'),
             },
 
-            {
-                path: 'sysRole',
-                name: 'sysRole',
-                component: () => import('../views/system/role/index.vue'),
-            },
+
 
         ]
     },
