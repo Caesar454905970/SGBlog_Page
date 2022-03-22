@@ -23,10 +23,10 @@
             <el-icon><icon-menu /></el-icon>
             <span>用户管理</span>
           </el-menu-item>
-<!--          <el-menu-item index="/sysRole">
+          <el-menu-item index="/Role">
             <el-icon><icon-menu /></el-icon>
             <span>角色管理</span>
-          </el-menu-item>-->
+          </el-menu-item>
           <el-menu-item index="/RequestLog">
             <el-icon><icon-menu /></el-icon>
             <span>操作日志</span>

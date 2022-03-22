@@ -355,14 +355,19 @@ onMounted(() => {
          //保存用户信息放入store
          //页面跳转:到主页
          ElMessage({
-           message: "登录成功",
+           message: res.msg,
            type: 'success',
            showClose: true,
            duration: 1000,
          })
          router.push('/home');
        }else {
-         alert("登录失败")
+         ElMessage({
+           message: res.msg,
+           type: 'error',
+           showClose: true,
+           duration: 3000,
+         })
          //登录失败
        }
 

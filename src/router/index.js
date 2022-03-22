@@ -1,5 +1,7 @@
 //从VueRouter中导入需要的函数模块
 import {createRouter, createWebHashHistory } from 'vue-router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // 导入 HelloWorld.vue 组件
 const routes = [
     {
@@ -31,7 +33,14 @@ const routes = [
                 component: () => import('../views/RequestLog/index.vue'),
             },
 
-
+            {
+                path: '/Role',
+                name: 'Role',
+                component: () => import('../views/Role/index.vue'),
+                meta:{
+                    title:' 角色管理'
+                }
+            },
 
         ]
     },
@@ -56,6 +65,7 @@ const router = createRouter({
 
 //路由拦截
 router.beforeEach((to, from, next) => {
+    NProgress.start()
     if (to.path === '/login' || to.path === '/register') {
         next()
         return
@@ -65,6 +75,7 @@ router.beforeEach((to, from, next) => {
     // if (!user.permissions || !user.permissions.length) {
     if (SysUserToken==null || SysUserToken==="" || SysUserToken===undefined ) {
         next('/login')
+        NProgress.done()
     }  else {
         next()
     }
@@ -74,6 +85,9 @@ router.beforeEach((to, from, next) => {
 
 
 
+router.afterEach(() => {
+    NProgress.done()
+})
 
 
 

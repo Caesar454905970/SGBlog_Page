@@ -62,7 +62,13 @@
       <el-table-column prop="status" label="账号状态"  align="center"/>
       <el-table-column prop="email" label="邮箱"  align="center"/>
       <el-table-column prop="phonenumber" label="手机号"  align="center"/>
-      <el-table-column :show-overflow-tooltip='true' width="150px" prop="sex" label="用户性别"  align="center"/>
+      <el-table-column :show-overflow-tooltip='true' width="150px" prop="sex" label="用户性别"  align="center">
+      <template #default="scope">
+        <el-tag v-if="scope.row.sex == 0" >男</el-tag>
+        <el-tag v-else-if="scope.row.sex == 1" type="success">女</el-tag>
+      </template>
+      </el-table-column>
+
       <el-table-column :show-overflow-tooltip='true' width="150px" prop="avatar" label="头像"  align="center"/>
       <el-table-column prop="createBy" label="createBy"  align="center"/>
       <el-table-column prop="updateBy" label="updateBy"  align="center"/>
@@ -76,11 +82,12 @@
           <span>{{ parseTime(scope.row.updateTime) }}</span>
         </template>
       </el-table-column>
-<!--      <el-table-column label="操作" align="center" width="70px">
+      <el-table-column label="操作" align="center" width="140px">
         <template #default="scope">
-          <el-button  class="coperate_btn" type="text"    @click="handleLog(scope.row)">详情</el-button>
+          <el-button  class="coperate_btn" type="text"    @click="handleEditAccount(scope.row)">编辑</el-button>
+          <el-button  class="coperate_btn" type="text"    @click="handleDelAccount(scope.row)">删除</el-button>
         </template>
-      </el-table-column>-->
+      </el-table-column>
 
     </el-table>
     <div style="display: flex;justify-content:center;background-color: #fff;">
@@ -132,7 +139,47 @@
       </template>
     </el-dialog>
 
+    <!--   编辑用户账号对话框-->
+    <el-dialog
+        v-model="dialogVisibleEditAccount"
+        title="编辑账号"
+        width="40%"
+        :before-close="handleClose"
+        @close="editAccountDialogClosed"
 
+    >
+      <!--      内容展示区域-->
+      <div style="    height: 50vh;overflow:auto;">
+        <el-form label-width="120px" ref="formEditRef" :model="accountForm.editForm" :rules="Rules">
+          <el-form-item label="账号id" prop="id" >
+            <el-input v-model="accountForm.editForm.id" :disabled="true"> </el-input>
+          </el-form-item>
+          <el-form-item label="昵称" prop="nickname">
+            <el-input v-model="accountForm.editForm.nickName"></el-input>
+          </el-form-item>
+          <el-form-item label="重置密码" prop="password">
+            <el-input v-model="accountForm.editForm.password"></el-input>
+          </el-form-item>
+          <el-form-item label="性别" prop="sex">
+            <el-input v-model="accountForm.editForm.sex"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="accountForm.editForm.email"></el-input>
+          </el-form-item>
+          <el-form-item label="头像" prop="avatar">
+            <el-input v-model="accountForm.editForm.avatar"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <template #footer>
+    <span class="dialog-footer">
+      <el-button @click="cancleEditAccountInfo">取消</el-button>
+      <el-button type="primary" @click="commitEditAccountInfo"
+      >提交</el-button
+      >
+    </span>
+      </template>
+    </el-dialog>
 
   </div>
 </template>
@@ -143,7 +190,7 @@
  */
 import {  Plus, Edit, Share, Delete, Search, Upload,Refresh } from '@element-plus/icons-vue'
 import {onMounted, reactive, ref} from "vue";
-import {AddUser, UserList} from "../../api/Account/Account";
+import {AddUser, DelUser, UpdateUser, UserList} from "../../api/Account/Account";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {parseTime} from "../../utils/ruoyi.js"; //引入时间格式化工具
 /*****数据区域*********/
@@ -164,17 +211,22 @@ const data =reactive({
 })
 //控制新增用户账号对话框
 const dialogVisibleAddAccount = ref(false)
+//控制编辑用户账号对话框
+const dialogVisibleEditAccount = ref(false)
 const formAddRef= ref(null)
+const formEditRef= ref(null)
 //要提交显示的表单信息_平台
 const accountForm = reactive({
   editForm:{
-    userName:'',
+    id:'',
     nickName:'',
-    password:'',
+    sex:'',
     email:'',
-
+    avatar:'',
+    password:'',
   },
   addForm:{
+
     userName:'',
     nickName:'',
     password:'',
@@ -268,6 +320,12 @@ const addAccountDialogClosed_plat=()=>{
   //清空信息
   formAddRef.value.resetFields()
 }
+//监听：编辑对话框关闭：清空表单，还原警告
+const editAccountDialogClosed=()=>{
+  //清空表单
+  //清空信息
+  formEditRef.value.resetFields()
+}
 
 //关闭对话框：取消新增账号
 const cancleAddAccountInfo=()=>{
@@ -278,46 +336,100 @@ const cancleAddAccountInfo=()=>{
   dialogVisibleAddAccount.value=false
 
 }
+//关闭对话框：取消编辑账号
+const cancleEditAccountInfo=()=>{
+  //清空表单
+  // formAddRef.value.resetFields()
+  //清空信息
+  //关闭弹出框
+  dialogVisibleEditAccount.value=false
+
+}
 // 提交 新增账号按钮
 const commitAddAccountInfo=()=>{
-  // 表单提交之前预验证
-  formAddRef.value.validate(async (valid) =>{
-    if (!valid) {
-      // 预验证失败
-      alert("预验证失败,表单信息有误，请检查")
-      loading.value = false;//取消 登录中。。。
-      return //拦截
-    }
+  //提交数据
+  const param ={
+  }
 
+  //存在名称，才加入，防止提交空
+  if(accountForm.addForm.userName){
+    param.userName=accountForm.addForm.userName
+  }
+  if(accountForm.addForm.nickName){
+    param.nickName=accountForm.addForm.nickName
+  }
+  if(accountForm.addForm.email){
+    param.email=accountForm.addForm.email
+  }
+  if(accountForm.addForm.password){
+    param.password=accountForm.addForm.password
+  }
+  AddUser(param).then(res=>{
+    if (res.code === 200) {
+      ElMessage({
+        message: res.msg,
+        type: 'success',
+        showClose: true,
+        duration: 1000,
+      })
+      //清空表单
+      formAddRef.value.resetFields()
+      //刷新列表
+      getAccountList()
+      dialogVisibleAddAccount.value=false
+    }else {
+      ElMessage({
+        message: res.msg,
+        type: 'error',
+        showClose: true,
+        duration: 1000,
+      })
+      //跳出
+
+    }
+  })
+
+
+
+
+
+}
+
+// 提交 编辑账号按钮
+const commitEditAccountInfo=()=>{
     //提交数据
     const param ={
     }
+  param.id=accountForm.editForm.id
     //存在名称，才加入，防止提交空
-    if(accountForm.addForm.userName){
-      param.userName=accountForm.addForm.userName
+    if(accountForm.editForm.nickName){
+      param.nickName=accountForm.editForm.nickName
     }
-    if(accountForm.addForm.nickName){
-      param.nickName=accountForm.addForm.nickName
+    if(accountForm.editForm.sex){
+      param.sex=accountForm.editForm.sex
     }
-    if(accountForm.addForm.password){
-      param.password=accountForm.addForm.password
+    if(accountForm.editForm.email){
+      param.email=accountForm.editForm.email
     }
-    if(accountForm.addForm.email){
-      param.email=accountForm.addForm.email
+    if(accountForm.editForm.avatar){
+      param.avatar=accountForm.editForm.avatar
     }
-    AddUser(param).then(res=>{
+  if(accountForm.editForm.password){
+    param.password=accountForm.editForm.password
+  }
+  UpdateUser(param).then(res=>{
       if (res.code === 200) {
         ElMessage({
-          message: "新增角色成功",
+          message: res.msg,
           type: 'success',
           showClose: true,
           duration: 1000,
         })
         //清空表单
-        formAddRef.value.resetFields()
+        formEditRef.value.resetFields()
         //刷新列表
         getAccountList()
-        dialogVisibleAddAccount.value=false
+        dialogVisibleEditAccount.value=false
       }else {
         ElMessage({
           message: res.msg,
@@ -329,8 +441,56 @@ const commitAddAccountInfo=()=>{
 
       }
     })
-  })
 
+
+
+
+
+}
+//点击编辑按钮：编辑用户信息
+const handleEditAccount=(row)=>{
+  //填充表单信息
+  accountForm.editForm.id=row.id
+  accountForm.editForm.nickName=row.nickName
+  accountForm.editForm.sex=row.sex
+  accountForm.editForm.email=row.email
+  accountForm.editForm.avatar=row.avatar
+  //打开编辑 对话框
+  dialogVisibleEditAccount.value=true
+}
+//点击删除按钮：删除用户
+const handleDelAccount=(row)=>{
+  //弹出是否确认删除
+  ElMessageBox.confirm('确认删除用户：'+row.userName)
+      .then(() => {
+        const param ={
+
+        }
+        param.ID=row.id
+        DelUser(param).then((res =>{
+          if (res.code === 200) {
+            ElMessage({
+              message: res.msg,
+              type: 'success',
+              showClose: true,
+              duration: 1000,
+            })
+            //更新列表
+            getAccountList()
+          }else{
+            ElMessage({
+              message: res.msg,
+              type: 'error',
+              showClose: true,
+              duration: 1000,
+            })
+          }
+
+        }))
+      })
+      .catch(() => {
+        // catch error
+      })
 
 
 

@@ -7,35 +7,35 @@ import service from "../../utils/request.js";
  * @returns {AxiosPromise}
  * @constructor
  */
-//获取用户列表
-export function UserList(query){
+//获取角色列表
+export function RoleList(query){
     return service({
         method:'post',  //请求的方法
-        url:`/user/userList`, //请求的地址
+        url:`/role/roleList`, //请求的地址
         params: query    //提交的参数
     })
 }
-// 新增用户
-export function AddUser(formData){
+// 新增角色
+export function AddRole(formData){
     return service({
         method:'post',  //请求的方法
-        url:`/user/register`, //请求的地址
+        url:`/role/addRole`, //请求的地址
         data: formData    //提交的参数
     })
 }
-// 13-更新个人信息
-export function UpdateUser(formData){
+// 修改角色信息
+export function UpdateRole(formData){
     return service({
         method:'post',  //请求的方法
-        url:`/user/updateUserInfo`, //请求的地址
+        url:`/role/updateRoleInfo`, //请求的地址
         data: formData    //提交的参数
     })
 }
-// 02-删除一个用户
-export function DelUser(query){
+//删除角色
+export function DelRole(query){
     return service({
         method:'post',  //请求的方法
-        url:`/user/delUserById`, //请求的地址
+        url:`/role/delRoleById`, //请求的地址
         params: query    //提交的参数
     })
 }
