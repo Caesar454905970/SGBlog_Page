@@ -18,7 +18,10 @@
             <el-icon><component :is="name"></component></el-icon>
             <span>主页</span>
           </el-menu-item>
-
+          <el-menu-item index="/Menu">
+            <el-icon><icon-menu /></el-icon>
+            <span>菜单管理</span>
+          </el-menu-item>
           <el-menu-item index="/Account">
             <el-icon><icon-menu /></el-icon>
             <span>用户管理</span>
