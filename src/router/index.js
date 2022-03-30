@@ -4,6 +4,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 // 导入 HelloWorld.vue 组件
 import  Layout from "../Layout/index.vue"
+import {getRouters} from "../api/Login/login";
 
 // component字符串转换为对象
 // const _loadPageByRoutes=(str)=> { // views文件夹下的Home组件，传入的格式为 'Home'
@@ -76,7 +77,7 @@ function _loadPageByRoutes(str) { // views文件夹下的Home组件，传入的�
 
 ]*/
 
-const data= [
+let data= [
     { path: '/', component: () => import('../Layout/index.vue'),redirect: "noRedirect",
         children:[
             {
@@ -219,11 +220,19 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写
 })
+getRouters().then(res=>{
+    data=[]
+    data=res.data
+    console.log("请求回来的动态路由",data)
+})
 let str=filterAsyncRouter(data)
 console.log("动态添加可访问路由表str",str)
 //路由拦截
 router.beforeEach((to, from, next) => {
-    // router.addRoute(routes1)
+    //防止刷新找不到路由
+    if (to.matched.length === 0) { router.push(to.path); }
+
+    console.log("str已经筛选出来的路由",str)
     str.forEach(route => {
         console.log("我来生成动态路由了")
         router.addRoute(route) // 动态添加可访问路由表

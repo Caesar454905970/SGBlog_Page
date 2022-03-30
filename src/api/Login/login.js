@@ -24,3 +24,10 @@ export  function logout(){
     })
 }
 
+// 03-获取动态路由
+export  function getRouters(){
+    return service({
+        method:'get',
+        url:`/getRouters`,
+    })
+}
