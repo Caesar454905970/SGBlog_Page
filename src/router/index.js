@@ -10,7 +10,7 @@ import  Layout from "../Layout/index.vue"
 //
 // }
 // 匹配views里面所有的.vue文件
-const modules = import.meta.glob('../views/**/*.vue')
+// const modules = import.meta.glob('../views/**/*.vue')
 // component字符串转换为对象
 
 const _loadPageByRoutes=(str)=>{
@@ -38,7 +38,7 @@ function _loadPageByRoutes(str) { // views文件夹下的Home组件，传入的�
 */
 
 
-const data= [
+/*const data= [
     {
         "alwaysShow": true,
         "children": [
@@ -74,15 +74,36 @@ const data= [
         "redirect": "noRedirect"
     },
 
+]*/
+
+const data= [
+    { path: '/', component: () => import('../Layout/index.vue'),redirect: "noRedirect",
+        children:[
+            {
+                path: 'Account',
+                name: 'Account',
+                component: 'Account',
+            },
+            {
+                path: 'Role',
+                name: 'Role',
+                component: 'Role',
+                meta:{
+                    title:' 角色管理'
+                }
+            }
+        ]}
 ]
-
-
-
+//匹配文件下的所有路由
+const modules = import.meta.glob('../views/**/index.vue')
 // 遍历后台传来的路由字符串，转换为组件对象
 //遍历树结构
 let _import =(view) => {
-    // console.log(view)
-    return  ()=>import(`../views/Account/index.vue`)
+    console.log("view传入",view)
+    console.log("modules所有",modules)
+    console.log("modules选择的结果",modules[`../views/${view}/index.vue`])
+    // return  ()=>import(`../views/${view}/index.vue`)
+    return modules[`../views/${view}/index.vue`]
 }
 // component:_import(item.component)//以这种方式引入
 const filterAsyncRouter=(routers)=>{
@@ -92,7 +113,7 @@ const filterAsyncRouter=(routers)=>{
          // console.log(str)
          if(!route.redirect){
              route.component=_import( route.component)//以这种方式引入
-             console.log( route.component)
+             console.log("生成的路由为", route.component)
              console.log("**********")
          }
 
@@ -150,7 +171,14 @@ const routes = [
                     title:' 角色管理'
                 }
             },*/
-
+            {
+                path: '/HighCharts',
+                name: 'HighCharts',
+                component: () => import('../views/HighCharts/index.vue'),
+                meta:{
+                    title:' HighCharts'
+                }
+            },
 
             {
                 path: '/Menu',
@@ -191,13 +219,13 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写
 })
-
+let str=filterAsyncRouter(data)
+console.log("动态添加可访问路由表str",str)
 //路由拦截
 router.beforeEach((to, from, next) => {
-    let str=filterAsyncRouter(data)
-    console.log("动态添加可访问路由表str",str)
     // router.addRoute(routes1)
-    routes1.forEach(route => {
+    str.forEach(route => {
+        console.log("我来生成动态路由了")
         router.addRoute(route) // 动态添加可访问路由表
     })
 

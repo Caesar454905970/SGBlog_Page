@@ -34,6 +34,11 @@
             <el-icon><icon-menu /></el-icon>
             <span>操作日志</span>
           </el-menu-item>
+
+          <el-menu-item index="/HighCharts">
+            <el-icon><icon-menu /></el-icon>
+            <span>HighCharts</span>
+          </el-menu-item>
         </el-sub-menu>
 
 <!--        <el-menu-item index.vue="2">-->

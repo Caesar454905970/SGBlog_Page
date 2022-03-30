@@ -38,7 +38,7 @@ function _loadPageByRoutes(str) { // views文件夹下的Home组件，传入的�
 */
 
 
-const data= [
+/*const data= [
     {
         "alwaysShow": true,
         "children": [
@@ -74,14 +74,31 @@ const data= [
         "redirect": "noRedirect"
     },
 
+]*/
+
+const data= [
+    { path: '/', component: () => import('../Layout/index.vue'),redirect: "noRedirect",
+        children:[
+            {
+                path: 'Account',
+                name: 'Account',
+                component: 'Account',
+            },
+            {
+                path: 'Role',
+                name: 'Role',
+                component: 'Role',
+                meta:{
+                    title:' 角色管理'
+                }
+            }
+        ]}
 ]
-
-
 
 // 遍历后台传来的路由字符串，转换为组件对象
 //遍历树结构
 let _import =(view) => {
-    // console.log(view)
+    console.log(view)
     return  ()=>import(`../views/Account/index.vue`)
 }
 // component:_import(item.component)//以这种方式引入
@@ -204,7 +221,7 @@ router.beforeEach((to, from, next) => {
     let str=filterAsyncRouter(data)
     console.log("动态添加可访问路由表str",str)
     // router.addRoute(routes1)
-    routes1.forEach(route => {
+    str.forEach(route => {
         router.addRoute(route) // 动态添加可访问路由表
     })
 
