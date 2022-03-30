@@ -31,3 +31,10 @@ export  function getRouters(){
         url:`/getRouters`,
     })
 }
+// 04-获取侧栏菜单列表
+export  function getMenuList(){
+    return service({
+        method:'get',
+        url:`/getMenuList`,
+    })
+}

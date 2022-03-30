@@ -13,70 +13,6 @@ import {getRouters} from "../api/Login/login";
 // 匹配views里面所有的.vue文件
 // const modules = import.meta.glob('../views/**/*.vue')
 // component字符串转换为对象
-
-const _loadPageByRoutes=(str)=>{
-    let res;
-    // console.log(modules)
-    for (const path in modules) {
-        const dir = path.split('views/')[1].split('/index.vue')[0];
-
-        if (dir === str) {
-
-            res = () => import(`../views/${str}/index.vue`)
-
-        }
-    }
-    // console.log("res",res)
-    return res;
-}
-
-/*
-function _loadPageByRoutes(str) { // views文件夹下的Home组件，传入的格式为 'Home'
-    return function (resolve) {
-        require(`../views/${str}/index.vue`);
-    };
-}
-*/
-
-
-/*const data= [
-    {
-        "alwaysShow": true,
-        "children": [
-            {
-                "component":"Account",
-                "hidden": false,
-                "meta": {
-                    "icon": "#",
-                    "noCache": false,
-                    "title": "用户管理"
-                },
-                "name": "Account",
-                "path": "/Account"
-            },
-            {
-                path: '/Role',
-                name: 'Role',
-                component: "Role",
-                meta:{
-                    title:' 角色管理'
-                }
-            },
-        ],
-        "component": () => import('../Layout/index.vue'),
-        "hidden": false,
-        "meta": {
-            "icon": "#",
-            "noCache": false,
-            "title": "系统管理"
-        },
-        "name": "/",
-        "path": "/",
-        "redirect": "noRedirect"
-    },
-
-]*/
-
 let data= [
     { path: '/', component: () => import('../Layout/index.vue'),redirect: "noRedirect",
         children:[
@@ -100,9 +36,9 @@ const modules = import.meta.glob('../views/**/index.vue')
 // 遍历后台传来的路由字符串，转换为组件对象
 //遍历树结构
 let _import =(view) => {
-    console.log("view传入",view)
-    console.log("modules所有",modules)
-    console.log("modules选择的结果",modules[`../views/${view}/index.vue`])
+    // console.log("view传入",view)
+    // console.log("modules所有",modules)
+    // console.log("modules选择的结果",modules[`../views/${view}/index.vue`])
     // return  ()=>import(`../views/${view}/index.vue`)
     return modules[`../views/${view}/index.vue`]
 }
@@ -110,12 +46,12 @@ let _import =(view) => {
 const filterAsyncRouter=(routers)=>{
     //遍历后台传过来的字符串，转换为组件对象
      routers= routers.filter((route)=>{
-         console.log("**********")
+         // console.log("**********")
          // console.log(str)
          if(!route.redirect){
              route.component=_import( route.component)//以这种方式引入
-             console.log("生成的路由为", route.component)
-             console.log("**********")
+             // console.log("生成的路由为", route.component)
+             // console.log("**********")
          }
 
 
@@ -223,18 +159,18 @@ const router = createRouter({
 getRouters().then(res=>{
     data=[]
     data=res.data
-    console.log("请求回来的动态路由",data)
+    // console.log("请求回来的动态路由",data)
 })
 let str=filterAsyncRouter(data)
-console.log("动态添加可访问路由表str",str)
+// console.log("动态添加可访问路由表str",str)
 //路由拦截
 router.beforeEach((to, from, next) => {
     //防止刷新找不到路由
     if (to.matched.length === 0) { router.push(to.path); }
 
-    console.log("str已经筛选出来的路由",str)
+    // console.log("str已经筛选出来的路由",str)
     str.forEach(route => {
-        console.log("我来生成动态路由了")
+        // console.log("我来生成动态路由了")
         router.addRoute(route) // 动态添加可访问路由表
     })
 

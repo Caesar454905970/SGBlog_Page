@@ -19,6 +19,14 @@
         <div>
           <el-card>
             <el-timeline>
+              <el-timeline-item timestamp="2022/3/30" placement="top">
+                <el-card>
+                  <h4>Update Github </h4>
+                  <p>更新动态路由和动态侧栏菜单：
+                    </p>
+                </el-card>
+              </el-timeline-item>
+
               <el-timeline-item timestamp="2022/3/22" placement="top">
                 <el-card>
                   <h4>Update Github </h4>

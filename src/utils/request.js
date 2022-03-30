@@ -10,7 +10,7 @@ import defaultSettings from '../settings'
 const { baseURL } = defaultSettings
 const service = axios.create({
     baseURL: baseURL,
-    timeout: 10000 //5s提示报错
+    timeout: 20000 //5s提示报错
 })
 
 //添加请求拦截器ss
@@ -54,7 +54,6 @@ service.interceptors.response.use(
                 type: 'error',
                 duration: 5 * 1000
             })
-
         }
 
         else if (res.code === 401) {

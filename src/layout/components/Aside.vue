@@ -4,47 +4,34 @@
   <el-aside width="200px">
     <div style="width: 200px">
       <el-menu
+
           style="height: calc(100vh - 51px)"
           default-active="/home"
           router
       >
-
-        <el-sub-menu index="1">
+        <!--一级菜单-->
+        <el-sub-menu :index="item.id + '' " v-for="item in menu_Side_list" :key="item.id">
+          <!--一级菜单的模板区-->
           <template #title>
-            <el-icon><location /></el-icon>
-            <span>系统管理</span>
+            <!--图标-->
+            <i :class="item.icon"></i>
+            <!--文本-->
+            <span>{{ item.menuName }}</span>
           </template>
-          <el-menu-item index="/home">
-            <el-icon><component :is="name"></component></el-icon>
-            <span>主页</span>
-          </el-menu-item>
-          <el-menu-item index="/Menu">
-            <el-icon><icon-menu /></el-icon>
-            <span>菜单管理</span>
-          </el-menu-item>
-          <el-menu-item index="/Account">
-            <el-icon><icon-menu /></el-icon>
-            <span>用户管理</span>
-          </el-menu-item>
-          <el-menu-item index="/Role">
-            <el-icon><icon-menu /></el-icon>
-            <span>角色管理</span>
-          </el-menu-item>
-          <el-menu-item index="/RequestLog">
-            <el-icon><icon-menu /></el-icon>
-            <span>操作日志</span>
-          </el-menu-item>
 
-          <el-menu-item index="/HighCharts">
-            <el-icon><icon-menu /></el-icon>
-            <span>HighCharts</span>
+          <!--二级菜单-->
+          <el-menu-item :index="subItem.path"
+                        v-for="subItem in item.children"
+                        :key="subItem.ID"
+                        @click="saveNavState(subItem.path)">
+            <template #title>
+              <!--图标-->
+              <i class="el-icon-menu"></i>
+              <!--文本-->
+              <span>{{ subItem.menuName }}</span>
+            </template>
           </el-menu-item>
         </el-sub-menu>
-
-<!--        <el-menu-item index.vue="2">-->
-<!--          <el-icon><icon-menu /></el-icon>-->
-<!--          <span>菜单二</span>-->
-<!--        </el-menu-item>-->
       </el-menu>
     </div>
   </el-aside>
@@ -62,8 +49,14 @@ import {
   Setting,
   ArrowDown, Apple,
 } from '@element-plus/icons-vue'
-import {reactive, ref,shallowRef} from "vue";
+import {computed, onMounted, reactive, ref, shallowRef} from "vue";
+import {useRoute} from "vue-router";
+import {getMenuList, getRouters} from "../../api/Login/login";
 
+/************数据************/
+//存放左侧菜单数据
+const menu_Side_list=ref([])
+const route = useRoute();
 //定义左侧动态菜单的数据：
 const  items = reactive([
   { title: '首页',url:'/home'},
@@ -77,6 +70,37 @@ const  items = reactive([
 
 //定义图标
 const name =shallowRef(Apple) //定义变量的值
+// 被激活的链接地址
+
+/*const activePath = computed(() => {
+  //判断当前路由是否为一级路由：菜单，如果是，直接放行
+  //如果当前路由是二级路由：返回父级菜单的一级路由的path:meta.activeMenu
+  const { meta, path } = route;
+  // console.log("activeMenu:",meta.activeMenu)
+/!*  if(meta.activeMenu){
+    return meta.activeMenu;
+  }*!/
+  // console.log("要跳转的路由",path)
+  return  path
+})*/
+/************函数方法************/
+const saveNavState=(path)=>{
+  // activePath.value=path
+}
+
+/************初始化************/
+//初始化
+onMounted(() => {
+  // console.log("**************")
+  // console.log("route",route)
+  getMenuList().then(res=>{
+    menu_Side_list.value=res.data
+    sessionStorage.setItem("getMenuList",JSON.stringify(res.data))
+    // console.log("请求回来的动态路由",res)
+  })
+
+
+})
 
 </script>
 
