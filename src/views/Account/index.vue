@@ -192,7 +192,8 @@ import {  Plus, Edit, Share, Delete, Search, Upload,Refresh } from '@element-plu
 import {onMounted, reactive, ref} from "vue";
 import {AddUser, DelUser, UpdateUser, UserList} from "../../api/Account/Account";
 import {ElMessage, ElMessageBox} from "element-plus";
-import {parseTime} from "../../utils/ruoyi.js"; //引入时间格式化工具
+import {parseTime} from "../../utils/ruoyi.js";
+import {Encrypt} from "../../utils/secret"; //引入时间格式化工具
 /*****数据区域*********/
 const loading = ref(false)
 //用户列表
@@ -362,7 +363,7 @@ const commitAddAccountInfo=()=>{
     param.email=accountForm.addForm.email
   }
   if(accountForm.addForm.password){
-    param.password=accountForm.addForm.password
+    param.password=Encrypt(accountForm.addForm.password)
   }
   AddUser(param).then(res=>{
     if (res.code === 200) {
@@ -415,7 +416,7 @@ const commitEditAccountInfo=()=>{
       param.avatar=accountForm.editForm.avatar
     }
   if(accountForm.editForm.password){
-    param.password=accountForm.editForm.password
+    param.password=Encrypt(accountForm.editForm.password)
   }
   UpdateUser(param).then(res=>{
       if (res.code === 200) {
