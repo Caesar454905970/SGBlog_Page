@@ -19,6 +19,17 @@
         <div>
           <el-card>
             <el-timeline>
+
+              <el-timeline-item timestamp="2022/3/31" placement="top">
+                <el-card>
+                  <h4>Update Github </h4>
+                  <p>引入：crypto-js前端加密：
+                    bcprov-jdk15on后端加密；
+                  </p>
+                </el-card>
+              </el-timeline-item>
+
+
               <el-timeline-item timestamp="2022/3/30" placement="top">
                 <el-card>
                   <h4>Update Github </h4>

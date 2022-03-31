@@ -162,7 +162,7 @@ import {
    UserFilled,
 } from '@element-plus/icons-vue'
 import router from '../../router'
-
+import {Encrypt} from '../../utils/Secret.js'
 // <!--引入粒子特效的相关配置-->
 const options = {
   background: {
@@ -346,8 +346,16 @@ onMounted(() => {
      //登录之前要删除本地的session中的token
      sessionStorage.removeItem("SysUserToken")
 
+    //对密码进行加密处理
+    const param={
+
+    }
+     param.userName=loginForm.userName
+     param.password=Encrypt(loginForm.password)
+
+     // console.log("登录提交过去的表单为",param)
      //数据交互(调用utils/api.js请求方法)
-     Login(loginForm).then(res => {
+     Login(param).then(res => {
        //接受到响应结果
        if(res.code ===200){
          //保存token进入localstorage
